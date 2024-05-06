@@ -14,6 +14,7 @@ body {
     align-items: center;
     padding: 1rem;
     margin: 1rem;
+    color: rgb(68, 64, 62)
 }
 
 h1 {
@@ -31,12 +32,35 @@ h1 {
     height: 1000px;
     padding: 1rem;
     display: flex;
-    flex-direction: column;
+    
     align-items: center;
     justify-content: center;
     padding-top: 180px;
     padding-left: 42px;
     font-size:30px;
+}
+
+.moo {
+    /* border: solid; */
+    width: 80px;
+    height: 80px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50px;
+    margin-right: 82px;
+    margin-top: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+
+.moo:hover {
+    color: rgb(166, 48, 93);
+    cursor:pointer;
+}
+.calculatorContainer {
+    margin-right: 160px;
 }
 
 button {
@@ -84,3 +108,22 @@ button:hover {
     border-radius: 20px 20px 0 0 ;
 }
 
+.copyright {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(164,122,100) ;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap: 10px;
+}
+
+.copyright span{
+    color: rgb(111, 104, 97);
+}
+
+.copyright img{
+    width: 25px;
+    height: 25px;
+    color: rgb(164,122,100);
+}

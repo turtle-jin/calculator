@@ -1,4 +1,5 @@
 
+//calculator logic 
 //find sum
 function sum(a, b) {
     return a + b; 
@@ -31,3 +32,9 @@ function power (base, power) {
     }
     return result; 
 }
+
+//moo button
+const mooBtn = document.querySelector(".moo"); 
+mooBtn.addEventListener("click", ()=> {
+    
+})
