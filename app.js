@@ -35,6 +35,7 @@ function power (base, power) {
 
 //moo button
 const mooBtn = document.querySelector(".moo"); 
+const mooSound = document.querySelector("#mooSound");
 mooBtn.addEventListener("click", ()=> {
-    
+    mooSound.play();
 })
