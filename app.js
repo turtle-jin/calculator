@@ -33,9 +33,35 @@ function power (base, power) {
     return result; 
 }
 
+//operate function
+function operate(operator, a, b) {
+    switch(operator) {
+        case "+":
+            return sum(a, b); 
+        case "-":
+            return subtract(a, b); 
+        case "*":
+            return multiply(a, b); 
+        case "/":
+            return divide(a, b); 
+        case "^": 
+            return power(a, b); 
+        default:
+            return "Invalid Operator"
+    }
+}
+
 //moo button
 const mooBtn = document.querySelector(".moo"); 
 const mooSound = document.querySelector("#mooSound");
 mooBtn.addEventListener("click", ()=> {
     mooSound.play();
 })
+
+const currentDisplay = document.querySelector("#currentDisplay");
+const btns = document.querySelectorAll("button"); 
+btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        currentDisplay.textContent += btn.textContent;
+    });
+});
