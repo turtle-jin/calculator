@@ -59,9 +59,39 @@ mooBtn.addEventListener("click", ()=> {
 })
 
 const currentDisplay = document.querySelector("#currentDisplay");
+const displayTopRow = document.querySelector("#displayTopRow");
 const btns = document.querySelectorAll("button"); 
-btns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        currentDisplay.textContent += btn.textContent;
+
+let valueA = [];
+let valueB = [];
+let operatorChosen = [];
+let firstInput; 
+let secondInput; 
+function getInput(btns) {
+    btns.forEach(btn => {
+        btn.addEventListener("click", () => { 
+            if (btn.classList.contains("digits")) {
+                valueA.push(btn.textContent);
+                console.log(valueA);
+                currentDisplay.textContent = valueA.join(""); 
+            }else {
+                firstInput = valueA.join("");
+                console.log(`The first user inpust is ${firstInput}`);
+                operatorChosen.push(btn.textContent); 
+                console.log(`The operator user picked is ${operatorChosen[0]}`);
+                displayTopRow.textContent = firstInput; 
+                currentDisplay.textContent = operatorChosen[0];
+                if(btn.classList.contains("digits")) {
+                    valueB.push(btn.textContent);
+                    console.log(valueB); 
+
+                }
+
+            }     
+        }); 
     });
-});
+}
+
+getInput(btns);
+
+
