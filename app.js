@@ -67,11 +67,28 @@ let operatorArr = ["+", "-", "*", "/", "^"]
 let firstInput; 
 let secondInput; 
 let operatorChosen;
+let result; 
+
+function clearArr (arr) {
+    arr.length = 0; 
+}
+
+//TODO add DEL function
+    //remove the last key entered in the arr
+
+//TODO add the logic to continue run operation after one = sign is detected
+    //if no num entered, use previous result as the firstInput
+    //if new num is entered, wipe previous entry and start new one
+
+//TODO add negative logic
+    //multiply -1 to the num
+
 function getInput(btns) {
     btns.forEach(btn => {
         btn.addEventListener("click", () => { 
             inputArr.push(btn.textContent);
             console.log(inputArr); 
+            
             let operatorIndex = inputArr.findIndex(item => operatorArr.includes(item));
             if (operatorIndex !== -1) {
                 firstInput = Number(inputArr.slice(0, operatorIndex).join(""));
@@ -85,13 +102,21 @@ function getInput(btns) {
                     secondInput = Number(inputArr.slice(operatorIndex + 1, equalIndex).join(""));
                     console.log(`second input is ${secondInput}`);
                     // Perform calculation
-                    const result = operate(operatorChosen, firstInput, secondInput);
+                    result = operate(operatorChosen, firstInput, secondInput);
                     console.log(`result is ${result}`);
-                    currentDisplay.textContent = result;
+                    
                 }
-            }
+            } 
             
+            if (inputArr.includes("C")) {
+                result = ""; 
+                clearArr(inputArr); 
+                
+                console.log(`remaining arr is ${inputArr}`)
+            }
             displayTopRow.textContent = inputArr.join("");
+            currentDisplay.textContent = result;
+           
         });
     });
 }
