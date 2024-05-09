@@ -62,35 +62,40 @@ const currentDisplay = document.querySelector("#currentDisplay");
 const displayTopRow = document.querySelector("#displayTopRow");
 const btns = document.querySelectorAll("button"); 
 
-let valueA = [];
-let valueB = [];
-let operatorChosen = [];
+let inputArr = [];
+let operatorArr = ["+", "-", "*", "/", "^"]
 let firstInput; 
 let secondInput; 
+let operatorChosen;
 function getInput(btns) {
     btns.forEach(btn => {
         btn.addEventListener("click", () => { 
-            if (btn.classList.contains("digits")) {
-                valueA.push(btn.textContent);
-                console.log(valueA);
-                currentDisplay.textContent = valueA.join(""); 
-            }else {
-                firstInput = valueA.join("");
-                console.log(`The first user inpust is ${firstInput}`);
-                operatorChosen.push(btn.textContent); 
-                console.log(`The operator user picked is ${operatorChosen[0]}`);
-                displayTopRow.textContent = firstInput; 
-                currentDisplay.textContent = operatorChosen[0];
-                if(btn.classList.contains("digits")) {
-                    valueB.push(btn.textContent);
-                    console.log(valueB); 
-
+            inputArr.push(btn.textContent);
+            console.log(inputArr); 
+            let operatorIndex = inputArr.findIndex(item => operatorArr.includes(item));
+            if (operatorIndex !== -1) {
+                firstInput = Number(inputArr.slice(0, operatorIndex).join(""));
+                operatorChosen = inputArr[operatorIndex];
+                console.log(`first input is ${firstInput}`);
+                console.log(`operator is ${operatorChosen}`);
+                
+                
+                let equalIndex = inputArr.indexOf("=");
+                if (equalIndex !== -1) {
+                    secondInput = Number(inputArr.slice(operatorIndex + 1, equalIndex).join(""));
+                    console.log(`second input is ${secondInput}`);
+                    // Perform calculation
+                    const result = operate(operatorChosen, firstInput, secondInput);
+                    console.log(`result is ${result}`);
+                    currentDisplay.textContent = result;
                 }
-
-            }     
-        }); 
+            }
+            
+            displayTopRow.textContent = inputArr.join("");
+        });
     });
 }
+
 
 getInput(btns);
 
