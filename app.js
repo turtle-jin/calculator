@@ -75,6 +75,9 @@ function clearArr (arr) {
 
 //TODO add DEL function
     //remove the last key entered in the arr
+function del_last(arr) {
+    arr.splice(-2);
+}
 
 //TODO add the logic to continue run operation after one = sign is detected
     //if no num entered, use previous result as the firstInput
@@ -86,7 +89,7 @@ function clearArr (arr) {
 function getInput(btns) {
     btns.forEach(btn => {
         btn.addEventListener("click", () => { 
-            inputArr.push(btn.textContent);
+            inputArr.push(btn.value);
             console.log(inputArr); 
             
             let operatorIndex = inputArr.findIndex(item => operatorArr.includes(item));
@@ -113,6 +116,12 @@ function getInput(btns) {
                 clearArr(inputArr); 
                 
                 console.log(`remaining arr is ${inputArr}`)
+            }
+
+            if (inputArr.includes("DEL")) {
+                del_last(inputArr);
+
+                console.log(`after del btm the arr is ${inputArr}`);
             }
             displayTopRow.textContent = inputArr.join("");
             currentDisplay.textContent = result;
