@@ -52,10 +52,16 @@ function operate(operator, a, b) {
 }
 
 //moo button
-const mooBtn = document.querySelector(".moo"); 
+const mooBtn = document.querySelector("#moo"); 
 const mooSound = document.querySelector("#mooSound");
 mooBtn.addEventListener("click", ()=> {
-    mooSound.play();
+    if (mooSound.paused) {
+        mooSound.play();
+        mooBtn.textContent = "Stop it!"
+    } else {
+        mooSound.pause();
+        mooBtn.textContent = "Suprise!"
+    }
 })
 
 const displayBottomRow = document.querySelector("#displayBottomRow");
