@@ -88,6 +88,12 @@ function del_last(arr) {
 //TODO add negative logic
     //multiply -1 to the num
 
+//TODO implement the continous operations like 1+2*3
+
+//TODO round decimals if it gets out of the display window
+
+
+
 function getInput(btns) {
     btns.forEach(btn => {
         btn.addEventListener("click", () => { 
