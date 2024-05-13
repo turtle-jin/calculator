@@ -78,9 +78,6 @@ function del_last(arr) {
     arr.splice(-2);
 }
 
-//TODO add the logic to continue run operation after one = sign is detected
-    //if no num entered, use previous result as the firstInput
-    //if new num is entered, wipe previous entry and start new one
 
 //TODO add negative logic
     //multiply -1 to the num
@@ -93,28 +90,20 @@ function getInput(btns) {
             if (inputArr.includes("C")) {
                 result = ""; 
                 clearArr(inputArr); 
-                
-                console.log(`remaining arr is ${inputArr}`)
             }
 
             if (inputArr.includes("DEL")) {
                 del_last(inputArr);
-
-                console.log(`after del btm the arr is ${inputArr}`);
             }
-            
+
             displayTopRow.textContent = inputArr.join("");
             let operatorIndex = inputArr.findIndex(item => operatorArr.includes(item));
             if (operatorIndex !== -1) {
                 firstInput = Number(inputArr.slice(0, operatorIndex).join(""));
                 operatorChosen = inputArr[operatorIndex];
-                console.log(`first input is ${firstInput}`);
-                console.log(`operator is ${operatorChosen}`);
-                
-                
+                     
                 let equalIndex = inputArr.indexOf("=");
                 if (equalIndex !== -1) {
-                    console.log(`current equal index is ${equalIndex}`)
                     secondInput = Number(inputArr.slice(operatorIndex + 1, equalIndex).join(""));
                     console.log(`second input is ${secondInput}`);
                     // Perform calculation
@@ -123,19 +112,19 @@ function getInput(btns) {
                     clearArr(inputArr);   
                     }
 
-                    displayBottomRow.textContent = result;
-                    
+    
 
                 if (operatorArr.includes(inputArr[0])) {
                      inputArr.unshift(result);   
                      console.log(`the new arr is now ${inputArr}`);     
                 }
-            } 
-            
-            
 
-            
-            // displayBottomRow.textContent = result;
+                if (operatorArr.includes(inputArr[1]) && inputArr.length >= 3) {
+                    result = "";
+                }
+            } 
+                        
+            displayBottomRow.textContent = result;
             // displayTopRow.textContent = inputArr.join("");
             
            
