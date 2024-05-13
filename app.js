@@ -84,6 +84,13 @@ function del_last(arr) {
     arr.splice(-2);
 }
 
+function negative(arr, negIndex) {
+    
+    arr.splice(-1, 1, "*", "-1");
+
+    //TODO: ok I think i need to figure out a way to have this return an operation immediately on screen 
+}
+
 
 //TODO add negative logic
     //multiply -1 to the num
@@ -108,10 +115,16 @@ function getInput(btns) {
                 del_last(inputArr);
             }
 
+            if (inputArr.includes("negative")) {
+                negative(inputArr);
+            }
+
             displayTopRow.textContent = inputArr.join("");
             let operatorIndex = inputArr.findIndex(item => operatorArr.includes(item));
+            
             if (operatorIndex !== -1) {
                 firstInput = Number(inputArr.slice(0, operatorIndex).join(""));
+                console.log(`first input is ${firstInput}`);
                 operatorChosen = inputArr[operatorIndex];
                      
                 let equalIndex = inputArr.indexOf("=");
