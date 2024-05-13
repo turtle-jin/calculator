@@ -58,7 +58,7 @@ mooBtn.addEventListener("click", ()=> {
     mooSound.play();
 })
 
-const currentDisplay = document.querySelector("#currentDisplay");
+const displayBottomRow = document.querySelector("#displayBottomRow");
 const displayTopRow = document.querySelector("#displayTopRow");
 const btns = document.querySelectorAll("button"); 
 
@@ -73,8 +73,7 @@ function clearArr (arr) {
     arr.length = 0; 
 }
 
-//TODO add DEL function
-    //remove the last key entered in the arr
+
 function del_last(arr) {
     arr.splice(-2);
 }
@@ -91,26 +90,6 @@ function getInput(btns) {
         btn.addEventListener("click", () => { 
             inputArr.push(btn.value);
             console.log(inputArr); 
-            
-            let operatorIndex = inputArr.findIndex(item => operatorArr.includes(item));
-            if (operatorIndex !== -1) {
-                firstInput = Number(inputArr.slice(0, operatorIndex).join(""));
-                operatorChosen = inputArr[operatorIndex];
-                console.log(`first input is ${firstInput}`);
-                console.log(`operator is ${operatorChosen}`);
-                
-                
-                let equalIndex = inputArr.indexOf("=");
-                if (equalIndex !== -1) {
-                    secondInput = Number(inputArr.slice(operatorIndex + 1, equalIndex).join(""));
-                    console.log(`second input is ${secondInput}`);
-                    // Perform calculation
-                    result = operate(operatorChosen, firstInput, secondInput);
-                    console.log(`result is ${result}`);
-                    
-                }
-            } 
-            
             if (inputArr.includes("C")) {
                 result = ""; 
                 clearArr(inputArr); 
@@ -123,8 +102,42 @@ function getInput(btns) {
 
                 console.log(`after del btm the arr is ${inputArr}`);
             }
+            
             displayTopRow.textContent = inputArr.join("");
-            currentDisplay.textContent = result;
+            let operatorIndex = inputArr.findIndex(item => operatorArr.includes(item));
+            if (operatorIndex !== -1) {
+                firstInput = Number(inputArr.slice(0, operatorIndex).join(""));
+                operatorChosen = inputArr[operatorIndex];
+                console.log(`first input is ${firstInput}`);
+                console.log(`operator is ${operatorChosen}`);
+                
+                
+                let equalIndex = inputArr.indexOf("=");
+                if (equalIndex !== -1) {
+                    console.log(`current equal index is ${equalIndex}`)
+                    secondInput = Number(inputArr.slice(operatorIndex + 1, equalIndex).join(""));
+                    console.log(`second input is ${secondInput}`);
+                    // Perform calculation
+                    result = operate(operatorChosen, firstInput, secondInput);
+                    console.log(`result is ${result}`);
+                    clearArr(inputArr);   
+                    }
+
+                    displayBottomRow.textContent = result;
+                    
+
+                if (operatorArr.includes(inputArr[0])) {
+                     inputArr.unshift(result);   
+                     console.log(`the new arr is now ${inputArr}`);     
+                }
+            } 
+            
+            
+
+            
+            // displayBottomRow.textContent = result;
+            // displayTopRow.textContent = inputArr.join("");
+            
            
         });
     });
