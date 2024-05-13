@@ -97,8 +97,9 @@ function negative(arr, negIndex) {
 
 //TODO implement the continous operations like 1+2*3
 
-//TODO round decimals if it gets out of the display window
+//TODO round decimals if it gets out of the display window (22 digits total)
 
+//TODO disable decimal button after user has pressed it once for each number
 
 
 function getInput(btns) {
