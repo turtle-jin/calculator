@@ -86,7 +86,7 @@ function del_last(arr) {
 
 function negative(arr, negIndex) {
     
-    arr.splice(-1, 1, "*", "-1");
+    arr.splice(-1, 1, "*", "-1", "=");
 
     //TODO: ok I think i need to figure out a way to have this return an operation immediately on screen 
 }
