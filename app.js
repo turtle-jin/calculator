@@ -68,7 +68,9 @@ const displayBottomRow = document.querySelector("#displayBottomRow");
 const displayTopRow = document.querySelector("#displayTopRow");
 const btns = document.querySelectorAll("button"); 
 
-let inputArr = [];
+let inputArrA = [];
+let inputOperatorArr = [];
+let inputArrB = [];
 let operatorArr = ["+", "-", "*", "/", "^"]
 let firstInput; 
 let secondInput; 
@@ -102,56 +104,51 @@ function negative(arr, negIndex) {
 //TODO disable decimal button after user has pressed it once for each number
 
 
-function getInput(btns) {
+function calculator(btns) {
     btns.forEach(btn => {
         btn.addEventListener("click", () => { 
-            inputArr.push(btn.value);
-            console.log(inputArr); 
-            if (inputArr.includes("C")) {
-                result = ""; 
-                clearArr(inputArr); 
+            //if operatorArr is empty, then add to arrA until operator sign is pressed
+            if (inputArrA.length !== 0 && operatorArr.includes(btn.value)) {
+                inputOperatorArr.push(btn.value);
+                console.log(`operator arr is ${inputOperatorArr}`);
+                if (inputOperatorArr.includes("DEL")) {
+                    del_last(inputOperatorArr);
+                }
+            }
+            if (inputOperatorArr.length === 0) {
+                inputArrA.push(btn.value); 
+                console.log(`arrA is ${inputArrA}`);
+                if (inputArrA.includes("DEL")) {
+                    del_last(inputArrA);
+                }
             }
 
-            if (inputArr.includes("DEL")) {
-                del_last(inputArr);
+            if (inputOperatorArr.length !== 0 && !(operatorArr.includes(btn.value))) {
+                inputArrB.push(btn.value);
+                console.log(`arrB is ${inputArrB}`)
+                if (inputArrB.includes("DEL")) {
+                    del_last(inputArrB);
+                }
             }
-
-            if (inputArr.includes("negative")) {
-                negative(inputArr);
-            }
-
-            displayTopRow.textContent = inputArr.join("");
-            let operatorIndex = inputArr.findIndex(item => operatorArr.includes(item));
+            //add operator to inputoperatorArr 
+            //if inputoperatorArr is not empty, then add the following elements to arrB
+                //until either an operator is clicked again or equalsign is clicked
+                    //then run operate function 
             
-            if (operatorIndex !== -1) {
-                firstInput = Number(inputArr.slice(0, operatorIndex).join(""));
-                console.log(`first input is ${firstInput}`);
-                operatorChosen = inputArr[operatorIndex];
-                     
-                let equalIndex = inputArr.indexOf("=");
-                if (equalIndex !== -1) {
-                    secondInput = Number(inputArr.slice(operatorIndex + 1, equalIndex).join(""));
-                    console.log(`second input is ${secondInput}`);
-                    // Perform calculation
-                    result = operate(operatorChosen, firstInput, secondInput);
-                    console.log(`result is ${result}`);
-                    clearArr(inputArr);   
-                    }
+            if (btn.value === "C") {
+                result = ""; 
+                clearArr(inputArrA); 
+                clearArr(inputArrB);
+                clearArr(inputOperatorArr);
+            }
 
-    
+            
 
-                if (operatorArr.includes(inputArr[0])) {
-                     inputArr.unshift(result);   
-                     console.log(`the new arr is now ${inputArr}`);     
-                }
+            if (inputArrA.includes("negative")) {
+                negative(inputArrA);
+            }
 
-                if (operatorArr.includes(inputArr[1]) && inputArr.length >= 3) {
-                    result = "";
-                }
-            } 
-                        
-            displayBottomRow.textContent = result;
-            // displayTopRow.textContent = inputArr.join("");
+            
             
            
         });
@@ -159,6 +156,6 @@ function getInput(btns) {
 }
 
 
-getInput(btns);
+calculator(btns);
 
 
