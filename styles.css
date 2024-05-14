@@ -13,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    margin: 1rem;
+    /* margin: 1rem; */
     color: rgb(68, 64, 62)
 }
 
@@ -28,27 +28,27 @@ h1 {
     background-size: cover;
     border-radius: 50px;
     box-shadow: 35px 25px 5px 2px rgb(153, 124, 115);
-    width: 1000px;
-    height: 1000px;
+    width: 700px;
+    height: 700px;
     padding: 1rem;
     display: flex;
     
     align-items: center;
     justify-content: center;
     padding-top: 180px;
-    padding-left: 42px;
-    font-size:30px;
+    padding-left: 95px;
+    font-size:25px;
 }
 
 .moo {
     /* border: solid; */
-    width: 80px;
-    height: 80px;
-    font-size: 23px;
+    width: 60px;
+    height: 60px;
+    font-size: 15px;
     text-align: center;
     border-radius: 50px;
-    margin-right: 82px;
-    margin-top: 260px;
+    margin-right: 45px;
+    margin-top: 135px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,11 +64,12 @@ h1 {
 }
 
 button {
-    width: 90px;
-    height: 90px;
-    font-size: 25px;
+    width: 68px;
+    height: 65px;
+    font-size: 20px;
     border-radius: 20px;
     border: solid #57545c;
+    margin: 1px;
 }
 
 button:hover {
@@ -79,13 +80,14 @@ button:hover {
 .resultDisplay {
     border: solid #57545c 5px;
     background-color: rgb(221,143,141);
-    width: 360px;
-    height: 100px;
+    width: 280px;
+    height: 80px;
     border-radius: 20px;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: center;
 }
 
 .row1, 
@@ -95,7 +97,7 @@ button:hover {
 .row5 {
     display: flex;
     justify-content: space-around;
-    background-color: rgb(240,169,171);
+    /* background-color: rgb(240,169,171); */
     /* background-color: rgb(215,170,139); */
 
 }
@@ -126,4 +128,11 @@ button:hover {
     width: 25px;
     height: 25px;
     color: rgb(164,122,100);
+}
+
+.operators {
+    background-color: pink;
+}
+.equalSign{
+    background-color: rgb(206, 96, 96);
 }
