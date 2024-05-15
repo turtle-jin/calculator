@@ -64,7 +64,7 @@ mooBtn.addEventListener("click", ()=> {
     }
 })
 
-const displayBottomRow = document.querySelector("#displayBottomRow");
+// const displayBottomRow = document.querySelector("#displayBottomRow");
 const displayTopRow = document.querySelector("#displayTopRow");
 const btns = document.querySelectorAll("button"); 
 const MAX_INPUT_LENGTH = 18; 
@@ -98,8 +98,6 @@ function del_last(arr) {
 
 
 
-//TODO round decimals if it gets out of the display window (22 digits total)
-
 //TODO disable decimal button after user has pressed it once for each number
 
 
@@ -116,7 +114,7 @@ function calculator(btns) {
                 clearArr(inputOperatorArr);
                 clearArr(topRowDisplayArr);
                 displayTopRow.textContent = "";
-                displayBottomRow.textContent = "";
+                // displayBottomRow.textContent = "";
                 return;
                 
             }
@@ -139,7 +137,7 @@ function calculator(btns) {
            // when arrA is empty, add keys to ArrA 
             if (inputOperatorArr.length === 0 && btn.value !== "C" && inputArrA.length <= MAX_INPUT_LENGTH) {
                 inputArrA.push(btn.value); 
-                displayBottomRow.textContent = "";
+                // displayBottomRow.textContent = "";
                 console.log(`arrA is ${inputArrA}`);
                 console.log(`arrA length is ${inputArrA.length}`)
                 if (inputArrA.includes("DEL")) {
