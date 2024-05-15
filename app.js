@@ -67,6 +67,7 @@ mooBtn.addEventListener("click", ()=> {
 const displayBottomRow = document.querySelector("#displayBottomRow");
 const displayTopRow = document.querySelector("#displayTopRow");
 const btns = document.querySelectorAll("button"); 
+const MAX_INPUT_LENGTH = 18; 
 
 let inputArrA = [];
 let inputOperatorArr = [];
@@ -106,6 +107,7 @@ function calculator(btns) {
     
     btns.forEach(btn => {
         btn.addEventListener("click", () => { 
+            
 
             if (btn.value === "C") {
                 result = ""; 
@@ -135,10 +137,11 @@ function calculator(btns) {
             console.log(`the operator user picked is ${operatorChosen}`);
             
            // when arrA is empty, add keys to ArrA 
-            if (inputOperatorArr.length === 0 && btn.value !== "C") {
+            if (inputOperatorArr.length === 0 && btn.value !== "C" && inputArrA.length <= MAX_INPUT_LENGTH) {
                 inputArrA.push(btn.value); 
                 displayBottomRow.textContent = "";
                 console.log(`arrA is ${inputArrA}`);
+                console.log(`arrA length is ${inputArrA.length}`)
                 if (inputArrA.includes("DEL")) {
                     del_last(inputArrA);
                 }
@@ -152,7 +155,7 @@ function calculator(btns) {
             
 
             //when operator is identified, put the rest of the keys in arrB
-            if (inputOperatorArr.length !== 0 && !(operatorArr.includes(btn.value)) && btn.value !== "=") {
+            if (inputOperatorArr.length !== 0 && !(operatorArr.includes(btn.value)) && btn.value !== "=" && inputArrB.length <= MAX_INPUT_LENGTH) {
                 inputArrB.push(btn.value);
                 console.log(`arrB is ${inputArrB}`)
                 if (inputArrB.includes("DEL")) {
@@ -172,18 +175,19 @@ function calculator(btns) {
 
             if (btn.value === "=") {
                 result = operate(operatorChosen, firstInput, secondInput);
+                
                 console.log(`the result is ${result}`);
                 displayBottomRow.textContent = result;
                 clearArr(inputArrA);
-                clearArr(inputArrB)
+                clearArr(inputArrB);
                 clearArr(inputOperatorArr);
-                
-                    
-               
+                inputArrA.push(result);
                 updateDisplay();
                 return;
                 
             }
+
+
 
             // when user continue the operation without clicking = sign
             if (inputOperatorArr.length > 1) {
@@ -207,6 +211,11 @@ function calculator(btns) {
 }
 
 function updateDisplay() {
-    displayTopRow.textContent = [...inputArrA, ...inputOperatorArr, ...inputArrB].join("");
+    if (inputArrA.length + inputOperatorArr.length + inputArrB.length> 20) {
+        displayTopRow.textContent = [...inputOperatorArr, ...inputArrB].join("");
+    }else {
+        displayTopRow.textContent = [...inputArrA, ...inputOperatorArr, ...inputArrB].join("");
+    }
+    
 }
 calculator(btns);
