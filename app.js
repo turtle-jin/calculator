@@ -76,6 +76,10 @@ let firstInput;
 let secondInput; 
 let operatorChosen;
 let result; 
+let negativeFlag = false;
+let topRowDisplayArr = [];
+
+
 
 function clearArr (arr) {
     arr.length = 0; 
@@ -86,12 +90,6 @@ function del_last(arr) {
     arr.splice(-2);
 }
 
-function negative(arr, negIndex) {
-    
-    arr.splice(-1, 1, "*", "-1", "=");
-
-    //TODO: ok I think i need to figure out a way to have this return an operation immediately on screen 
-}
 
 
 //TODO add negative logic
@@ -105,57 +103,110 @@ function negative(arr, negIndex) {
 
 
 function calculator(btns) {
+    
     btns.forEach(btn => {
         btn.addEventListener("click", () => { 
-            //if operatorArr is empty, then add to arrA until operator sign is pressed
-            if (inputArrA.length !== 0 && operatorArr.includes(btn.value)) {
+
+            if (btn.value === "C") {
+                result = ""; 
+                clearArr(inputArrA); 
+                clearArr(inputArrB);
+                clearArr(inputOperatorArr);
+                clearArr(topRowDisplayArr);
+                displayTopRow.textContent = "";
+                displayBottomRow.textContent = "";
+                return;
+                
+            }
+
+            //if operatorArr is not empty, and user clicked operator key
+            if (inputArrA.length !== 0 && operatorArr.includes(btn.value) && btn.value !== "C") {
                 inputOperatorArr.push(btn.value);
                 console.log(`operator arr is ${inputOperatorArr}`);
+                
                 if (inputOperatorArr.includes("DEL")) {
                     del_last(inputOperatorArr);
                 }
             }
-            if (inputOperatorArr.length === 0) {
+
+            operatorChosen = inputOperatorArr[0];
+            updateDisplay();
+            
+            console.log(`the operator user picked is ${operatorChosen}`);
+            
+           // when arrA is empty, add keys to ArrA 
+            if (inputOperatorArr.length === 0 && btn.value !== "C") {
                 inputArrA.push(btn.value); 
+                
                 console.log(`arrA is ${inputArrA}`);
                 if (inputArrA.includes("DEL")) {
                     del_last(inputArrA);
                 }
+            
             }
+            
+            
+            firstInput = Number(inputArrA.join(""));
+            
+            console.log(`first input is ${firstInput}`);
+            
 
-            if (inputOperatorArr.length !== 0 && !(operatorArr.includes(btn.value))) {
+            //when operator is identified, put the rest of the keys in arrB
+            if (inputOperatorArr.length !== 0 && !(operatorArr.includes(btn.value)) && btn.value !== "=") {
                 inputArrB.push(btn.value);
                 console.log(`arrB is ${inputArrB}`)
                 if (inputArrB.includes("DEL")) {
                     del_last(inputArrB);
                 }
             }
-            //add operator to inputoperatorArr 
-            //if inputoperatorArr is not empty, then add the following elements to arrB
-                //until either an operator is clicked again or equalsign is clicked
-                    //then run operate function 
+
+            secondInput = Number(inputArrB.join(""));
             
-            if (btn.value === "C") {
-                result = ""; 
-                clearArr(inputArrA); 
-                clearArr(inputArrB);
+            console.log(`second input in ${secondInput}`);
+            updateDisplay();
+            
+            
+            
+
+            //when = sign is clicked
+
+            if (btn.value === "=") {
+                result = operate(operatorChosen, firstInput, secondInput);
+                console.log(`the result is ${result}`);
+                displayBottomRow.textContent = result;
+                clearArr(inputArrA);
+                clearArr(inputArrB)
                 clearArr(inputOperatorArr);
+                if (inputArrA.length > 0){
+                    displayBottomRow.textContent = "";
+                }
+                updateDisplay();
+                return;
+                
             }
 
-            
+            // when user continue the operation without clicking = sign
+            if (inputOperatorArr.length > 1) {
+                result = operate(operatorChosen, firstInput, secondInput);
+                
+                clearArr(inputArrA);
+                inputArrA.push(result);
 
-            if (inputArrA.includes("negative")) {
-                negative(inputArrA);
+                console.log(`the new arrA is now ${inputArrA}`);
+                clearArr(inputArrB)
+                inputOperatorArr.shift();
+                operatorChosen = inputOperatorArr[0];
+                updateDisplay();
+                displayBottomRow.textContent = '';
+                
             }
-
-            
             
            
         });
     });
 }
 
-
+function updateDisplay() {
+    displayTopRow.textContent = [...inputArrA, ...inputOperatorArr, ...inputArrB].join("");
+}
 calculator(btns);
-
-
