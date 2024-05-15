@@ -137,7 +137,7 @@ function calculator(btns) {
            // when arrA is empty, add keys to ArrA 
             if (inputOperatorArr.length === 0 && btn.value !== "C") {
                 inputArrA.push(btn.value); 
-                
+                displayBottomRow.textContent = "";
                 console.log(`arrA is ${inputArrA}`);
                 if (inputArrA.includes("DEL")) {
                     del_last(inputArrA);
@@ -177,9 +177,9 @@ function calculator(btns) {
                 clearArr(inputArrA);
                 clearArr(inputArrB)
                 clearArr(inputOperatorArr);
-                if (inputArrA.length > 0){
-                    displayBottomRow.textContent = "";
-                }
+                
+                    
+               
                 updateDisplay();
                 return;
                 
