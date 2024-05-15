@@ -84,6 +84,7 @@ let secondInput;
 let operatorChosen;
 let result; 
 let topRowDisplayArr = [];
+let equalSignArr = [];
 
 
 
@@ -99,6 +100,7 @@ function del_last(arr) {
 
 
 //TODO disable decimal button after user has pressed it once for each number
+//TODO after getting the result from equal sign, if not followed by an operator, clear ArrA and start over
 
 
 function calculator(btns) {
@@ -127,14 +129,12 @@ function calculator(btns) {
             }
             operatorChosen = inputOperatorArr[0];
             updateDisplay();
-            console.log(`the operator user picked is ${operatorChosen}`);
             
-
+            
            // when arrA is empty, add keys to ArrA 
             if (inputOperatorArr.length === 0 && btn.value !== "C" && inputArrA.length <= MAX_INPUT_LENGTH) {
                 inputArrA.push(btn.value); 
                 console.log(`arrA is ${inputArrA}`);
-                console.log(`arrA length is ${inputArrA.length}`)
                 if (inputArrA.includes("DEL")) {
                     del_last(inputArrA);
                 }
@@ -143,7 +143,7 @@ function calculator(btns) {
                     inputArrA[0] *= -1;
                     updateDisplay();
                 }
-            }
+            } 
             firstInput = Number(inputArrA.join(""));
             console.log(`first input is ${firstInput}`);
             
@@ -160,7 +160,7 @@ function calculator(btns) {
                     inputArrB[0] *= -1;
                     updateDisplay();
                 }
-            }
+            } 
             secondInput = Number(inputArrB.join(""));
             console.log(`second input in ${secondInput}`);
             updateDisplay();
@@ -168,15 +168,18 @@ function calculator(btns) {
 
             //when = sign is clicked
             if (btn.value === "=") {
+                
                 result = operate(operatorChosen, firstInput, secondInput);
+
                 console.log(`the result is ${result}`);
                 clearArr(inputArrA);
                 clearArr(inputArrB);
                 clearArr(inputOperatorArr);
                 inputArrA.push(result);
+                equalSignArr.push("=");
                 updateDisplay();  
             }
-
+         
 
             // when user continue the operation without clicking = sign
             if (inputOperatorArr.length > 1) {
