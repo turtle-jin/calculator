@@ -85,8 +85,7 @@ let secondInput;
 let operatorChosen;
 let result; 
 let topRowDisplayArr = [];
-let equalSignArr = [];
-
+let afterEqualSign = false;
 
 
 function clearArr (arr) {
@@ -101,9 +100,6 @@ function del_last(arr) {
 function hasDecimalPoint(arr) {
     return arr.includes(".");
 }
-
-
-//TODO after getting the result from equal sign, if not followed by an operator, clear ArrA and start over
 
 
 function calculator(btns) {
@@ -123,26 +119,22 @@ function calculator(btns) {
             }
             
             
-
-            
-            
-          
-
-            //if operatorArr is not empty, and user clicked operator key
-            if (inputArrA.length !== 0 && operatorArr.includes(btn.value) && btn.value !== "C") {
-                inputOperatorArr.push(btn.value);
-                decimalPointButton.disabled = false;
-                console.log(`operator arr is ${inputOperatorArr}`);
-                if (inputOperatorArr.includes("DEL")) {
-                    del_last(inputOperatorArr);
+            if (inputArrA.length !== 0 && afterEqualSign && !(operatorArr.includes(btn.value))) {
+                clearArr(inputArrA);
+                inputArrA.push(btn.value);
+                afterEqualSign = false; 
+                if (inputArrA.includes("DEL")) {
+                    del_last(inputArrA);
                 }
-            }
-            operatorChosen = inputOperatorArr[0];
-            updateDisplay();
-            
-            
-           // when arrA is empty, add keys to ArrA 
-            if (inputOperatorArr.length === 0 && btn.value !== "C" && inputArrA.length <= MAX_INPUT_LENGTH) {
+                if (btn.value === "negative") {
+                    inputArrA.pop();
+                    inputArrA[0] *= -1;
+                    updateDisplay();
+                }
+                if (hasDecimalPoint(inputArrA)) {
+                    decimalPointButton.disabled = true;
+                }
+            }else if (inputOperatorArr.length === 0 && btn.value !== "C" && inputArrA.length <= MAX_INPUT_LENGTH && !(operatorArr.includes(btn.value))) {  
                 inputArrA.push(btn.value); 
                 console.log(`arrA is ${inputArrA}`);
                 if (inputArrA.includes("DEL")) {
@@ -155,14 +147,25 @@ function calculator(btns) {
                 }
                 if (hasDecimalPoint(inputArrA)) {
                     decimalPointButton.disabled = true;
-                }
-
-               
+                } 
             } 
             firstInput = Number(inputArrA.join(""));
             console.log(`first input is ${firstInput}`);
             
+            //operatorArr is not empty, and user clicked operator key
+            if (inputArrA.length !== 0 && operatorArr.includes(btn.value) && btn.value !== "C") {
+                afterEqualSign = false;
+                inputOperatorArr.push(btn.value);
+                decimalPointButton.disabled = false;
+                console.log(`operator arr is ${inputOperatorArr}`);
+                if (inputOperatorArr.includes("DEL")) {
+                    del_last(inputOperatorArr);
+                }
+            }
+            operatorChosen = inputOperatorArr[0];
+            updateDisplay();
             
+                 
             //when operator is identified, put the rest of the keys in arrB
             if (inputOperatorArr.length !== 0 && !(operatorArr.includes(btn.value)) && btn.value !== "=" && inputArrB.length <= MAX_INPUT_LENGTH) {
                 inputArrB.push(btn.value);
@@ -177,8 +180,7 @@ function calculator(btns) {
                 }
                 if (hasDecimalPoint(inputArrB)) {
                     decimalPointButton.disabled = true;
-                }
-                
+                }         
             } 
             
             secondInput = Number(inputArrB.join(""));
@@ -188,16 +190,14 @@ function calculator(btns) {
 
             //when = sign is clicked
             if (btn.value === "=") {
-                
                 result = operate(operatorChosen, firstInput, secondInput);
-
                 console.log(`the result is ${result}`);
                 clearArr(inputArrA);
                 clearArr(inputArrB);
                 clearArr(inputOperatorArr);
-                decimalPointButton.disabled = false;
                 inputArrA.push(result);
-                equalSignArr.push("=");
+                decimalPointButton.disabled = false;
+                afterEqualSign = true;
                 updateDisplay();  
             }
          
