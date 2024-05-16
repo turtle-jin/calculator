@@ -226,3 +226,41 @@ function updateDisplay() {
     }  
 }
 calculator(btns);
+
+const keyMap = {
+    '0': '0',
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '4': '4',
+    '5': '5',
+    '6': '6',
+    '7': '7',
+    '8': '8',
+    '9': '9',
+    '+': '+',
+    '-': '-',
+    '*': '*',
+    '/': '/',
+    'Enter': '=',
+    '=': '=',
+    'Backspace': 'DEL',
+    'c': 'C',
+    'C': 'C',
+    '.': '.',
+    '^': '^'
+};
+
+document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    if(keyMap[key]) {
+        handleKeyPress(keyMap[key]);
+    }
+})
+
+function handleKeyPress(value) {
+    const btn = document.querySelector(`button[value="${value}"]`);
+    if (btn) {
+        btn.click();
+    }
+}
