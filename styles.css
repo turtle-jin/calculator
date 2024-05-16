@@ -150,6 +150,7 @@ button:hover {
     }
     .copyright {
         font-size: 15px;
+        margin-top: 15px;
     }
 
     .container{
@@ -164,7 +165,6 @@ button:hover {
         flex-direction: column;
         padding: 0;
         margin: 0;
-        /* border: solid; */
     }
     .moo {
         margin-right: 0;
