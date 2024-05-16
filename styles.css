@@ -70,6 +70,7 @@ button {
     border-radius: 20px;
     border: solid #57545c;
     margin: 1px;
+    color: #57545c;
 }
 
 button:hover {
@@ -135,4 +136,48 @@ button:hover {
 }
 .equalSign{
     background-color: rgb(206, 96, 96);
+}
+
+@media (max-width: 600px) {
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        font-size: 35px;
+    }
+    .copyright {
+        font-size: 15px;
+    }
+
+    .container{
+        box-shadow: none;
+        margin-bottom: 0;
+        width: 100px;
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        border-radius: 50px;
+        box-shadow: none;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        /* border: solid; */
+    }
+    .moo {
+        margin-right: 0;
+        margin-top: -100px;
+        border-radius: 0;
+        /* border: solid; */
+        width: 300px;
+        color: #57545c;
+        
+    }
+    .calculatorContainer {
+        margin-right: 0;
+        margin-top: 100px;
+    }
+
 }
